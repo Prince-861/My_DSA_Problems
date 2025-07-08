@@ -23,18 +23,36 @@ public class ThreeSum {
         List<List<Integer>> ls = threeSum(nums);
         System.out.println(ls);//[[-1, -1, 2], [-1, 0, 1]]
     }
+//    public static List<List<Integer>> threeSum(int[] nums){
+//        int n = nums.length;
+//        Set<List<Integer>> set = new HashSet<>();
+//        for(int i=0;i<n;i++){
+//            for(int j=i+1;j<n;j++){
+//                for(int k=j+1;k<n;k++){
+//                    if(nums[i]+nums[j]+nums[k]==0){
+//                        List<Integer>list = Arrays.asList(nums[i],nums[j],nums[k]);
+//                        Collections.sort(list);
+//                        set.add(list);
+//                    }
+//                }
+//            }
+//        }
+//        return new ArrayList<>(set);
+//    }
+
+//    Method-2 ---> T.C===> O(n^2) S.C ==> O(n^2)
     public static List<List<Integer>> threeSum(int[] nums){
-        int n = nums.length;
         Set<List<Integer>> set = new HashSet<>();
-        for(int i=0;i<n;i++){
-            for(int j=i+1;j<n;j++){
-                for(int k=j+1;k<n;k++){
-                    if(nums[i]+nums[j]+nums[k]==0){
-                        List<Integer>list = Arrays.asList(nums[i],nums[j],nums[k]);
-                        Collections.sort(list);
-                        set.add(list);
-                    }
+        for(int i=0;i<nums.length;i++){
+            Set<Integer>hashSet = new HashSet<>();
+            for(int j=i+1;j<nums.length;j++){
+                int third = -(nums[i]+nums[j]);
+                if(hashSet.contains(third)){
+                    List<Integer>list = Arrays.asList(nums[i],nums[j],third);
+                    Collections.sort(list);
+                    set.add(list);
                 }
+                hashSet.add(nums[j]);
             }
         }
         return new ArrayList<>(set);
