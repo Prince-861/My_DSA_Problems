@@ -1,6 +1,8 @@
 package com.arrays;
 
 import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 
 //Given an unsorted array of integers nums, return the length of the longest consecutive elements sequence
 //Example 1:
@@ -15,8 +17,8 @@ import java.util.Arrays;
 //Output: 3
 public class LongestConsecutiveSequence {
     public static void main(String[] args) {
-//        int nums[] = {100,4,200,1,3,2};//4
-        int nums[] = {0,3,7,2,5,8,4,6,0,1};//9
+        int nums[] = {100,4,200,1,3,2};//4
+//        int nums[] = {0,3,7,2,5,8,4,6,0,1};//9
         int ans = longestConsecutive(nums);
         System.out.println(ans);
     }
@@ -42,20 +44,40 @@ public class LongestConsecutiveSequence {
 //        return false;
 //    }
 //    Method-2 Using Sorting T.C=O(nlogn)
+//    public static int longestConsecutive(int[] nums){
+//        if(nums==null || nums.length==0) return 0;
+//        Arrays.sort(nums);
+//        int count=1;
+//        int maxCount=1;
+//        for(int i=1;i<nums.length;i++){
+//            if(nums[i]==nums[i-1]) continue;
+//            if(nums[i]==nums[i-1]+1){
+//                count++;
+//                maxCount = Math.max(maxCount,count);
+//            }else{
+//                count=1;
+//            }
+//        }
+//        return maxCount;
+//    }
+//    Method-3 Using HashSet T.C=O(n) || S.C = O(n)
     public static int longestConsecutive(int[] nums){
         if(nums==null || nums.length==0) return 0;
-        Arrays.sort(nums);
-        int count=1;
-        int maxCount=1;
-        for(int i=1;i<nums.length;i++){
-            if(nums[i]==nums[i-1]) continue;
-            if(nums[i]==nums[i-1]+1){
-                count++;
-                maxCount = Math.max(maxCount,count);
-            }else{
-                count=1;
+        Set<Integer> set = new HashSet<>();
+        for(int i : nums){
+            set.add(i);
+        }
+        int longestConsecutive =0;
+        for(int i:set){
+            if(!set.contains(i-1)){
+                int count=1;
+                while(set.contains(i+1)){
+                    count++;
+                    i++;
+                    longestConsecutive = Math.max(longestConsecutive,count);
+                }
             }
         }
-        return maxCount;
+        return longestConsecutive;
     }
 }
