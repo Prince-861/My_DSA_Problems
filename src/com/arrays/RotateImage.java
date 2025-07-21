@@ -10,43 +10,58 @@ package com.arrays;
 //Output: [[15,13,2,5],[14,3,4,1],[12,6,8,9],[16,7,10,11]]
 public class RotateImage {
     public static void main(String[] args) {
-        int[][] matrix = {
+        int matrix[][]={
                 {5,1,9,11},
                 {2,4,8,10},
                 {13,3,6,7},
                 {15,14,12,16}
         };
+
         rotate(matrix);
 
-        // Print result
-        for (int[] row : matrix) {
-            for (int val : row) {
-                System.out.print(val + " ");
+        for(int[] row : matrix){
+            for(int value : row){
+                System.out.print(value + " ");
             }
             System.out.println();
         }
     }
+//Method -1
+//    public static void rotate(int[][] matrix) {
+//        int n = matrix.length;
+//
+//        // Transpose
+//        for (int i = 0; i < n; i++) {
+//            for (int j = i + 1; j < n; j++) {
+//                int temp = matrix[i][j];
+//                matrix[i][j] = matrix[j][i];
+//                matrix[j][i] = temp;
+//            }
+//        }
+//
+//        // Reverse rows
+//        for (int i = 0; i < n; i++) {
+//            for (int j = 0; j < n / 2; j++) {
+//                int temp = matrix[i][j];
+//                matrix[i][j] = matrix[i][n - 1 - j];
+//                matrix[i][n - 1 - j] = temp;
+//            }
+//        }
+//    }
 
+//    Method-2
     public static void rotate(int[][] matrix) {
         int n = matrix.length;
-
-        // Transpose
-        for (int i = 0; i < n; i++) {
-            for (int j = i + 1; j < n; j++) {
-                int temp = matrix[i][j];
-                matrix[i][j] = matrix[j][i];
-                matrix[j][i] = temp;
+        int arr[][] = new int[n][n];
+        for(int i=0;i<n;i++){
+            for(int j=0;j<n;j++){
+                arr[j][n-1-i]=matrix[i][j];
             }
         }
-
-        // Reverse rows
-        for (int i = 0; i < n; i++) {
-            for (int j = 0; j < n / 2; j++) {
-                int temp = matrix[i][j];
-                matrix[i][j] = matrix[i][n - 1 - j];
-                matrix[i][n - 1 - j] = temp;
+        for(int i=0;i<n;i++){
+            for(int j=0;j<n;j++){
+                matrix[i][j]=arr[i][j];
             }
         }
     }
-
 }
