@@ -53,16 +53,38 @@ public class GroupAnagrams {
 //    }
 
 //    Method-2(Better Solution)
+//    public static List<List<String>> groupAnagrams(String[] strs){
+//        Map<String, List<String>> map = new HashMap<>();
+//        for(String str:strs){
+//            char[] chars = str.toCharArray();
+//            Arrays.sort(chars);
+//            String sortedKey = new String(chars);
+//            if(!map.containsKey(sortedKey)){
+//                map.put(sortedKey,new ArrayList<>());
+//            }
+//            map.get(sortedKey).add(str);
+//        }
+//        return new ArrayList<>(map.values());
+//    }
+
+//    Method-3(Optimized Approach)
     public static List<List<String>> groupAnagrams(String[] strs){
         Map<String, List<String>> map = new HashMap<>();
-        for(String str:strs){
-            char[] chars = str.toCharArray();
-            Arrays.sort(chars);
-            String sortedKey = new String(chars);
-            if(!map.containsKey(sortedKey)){
-                map.put(sortedKey,new ArrayList<>());
+        for(String str: strs){
+            int[] count = new int[26];
+            for(char ch: str.toCharArray()){
+                count[ch-'a']++;
             }
-            map.get(sortedKey).add(str);
+            StringBuilder sb = new StringBuilder();
+            for(int val : count){
+                sb.append(val).append('#');
+            }
+            String key = sb.toString();
+            System.out.println(key);
+            if(!map.containsKey(key)){
+                map.put(key,new ArrayList<>());
+            }
+            map.get(key).add(str);
         }
         return new ArrayList<>(map.values());
     }
