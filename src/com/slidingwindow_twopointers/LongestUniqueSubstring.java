@@ -1,6 +1,8 @@
 package com.slidingwindow_twopointers;
 
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 //Given a string s, find the length of the longest substring without duplicate characters.
@@ -16,8 +18,8 @@ import java.util.Set;
 //Explanation: The answer is "b", with the length of 1.
 public class LongestUniqueSubstring {
     public static void main(String[] args) {
-//        String s = "abcabcbb";//3
-        String s = "bbbbb";//1
+        String s = "abcabcbb";//3
+//        String s = "bbbbb";//1
         System.out.println(lengthOfLongestSubstring(s));
     }
 //    Method-1(T.C=O(n^2))
@@ -39,18 +41,36 @@ public class LongestUniqueSubstring {
 //        return maxLength;
 //    }
 
+
+// Method-2(T.C=O(n^2))
+//    public static int lengthOfLongestSubstring(String s){
+//        Set<Character> set = new HashSet<>();
+//        int n = s.length();
+//        int maxLength = 0;
+//        int l=0;
+//        for(int r=0;r<n;r++){
+//            while(r<n && set.contains(s.charAt(r))){
+//                set.remove(s.charAt(l++));
+//            }
+//            set.add(s.charAt(r));
+//            maxLength = Math.max(r-l+1,maxLength);
+//        }
+//        return  maxLength;
+//    }
+
+//    M-3(T.C=O(N))
     public static int lengthOfLongestSubstring(String s){
-        Set<Character> set = new HashSet<>();
+        Map<Character,Integer> map = new HashMap<>();
         int n = s.length();
-        int maxLength = 0;
-        int l=0;
-        for(int r=0;r<n;r++){
-            while(r<n && set.contains(s.charAt(r))){
-                set.remove(s.charAt(l++));
+        int l=0,r=0,maxLength=0;
+        while(r<n){
+            if(map.containsKey(s.charAt(r))){
+                l = Math.max(map.get(s.charAt(r))+1,l); //check for s="abba" //Here we have to keep in mind that 'l' should be equal or greater than the present l index
             }
-            set.add(s.charAt(r));
-            maxLength = Math.max(r-l+1,maxLength);
+            map.put(s.charAt(r),r);
+            maxLength = Math.max(maxLength,r-l+1);
+            r++;
         }
-        return  maxLength;
+        return maxLength;
     }
 }
