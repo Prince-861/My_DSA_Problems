@@ -40,6 +40,7 @@ public class MaxmPointsFromCards {
             leftSum-=cardPoints[l];
             currSum = leftSum + rightSum;
             maxSum = Math.max(maxSum,currSum);
+            r--;
         }
         return maxSum;
     }
