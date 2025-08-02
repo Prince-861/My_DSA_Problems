@@ -36,12 +36,32 @@ public class MaxConsecutiveOnesIII {
 //        }
 //        return maxLength;
 //    }
+//    Method-2 --> T.C=O(2n)
+//    public static int longestOnes(int[] nums, int k){
+//        int n = nums.length;
+//        int l=0,r=0,zero=0,maxLength=0;
+//        while(r<n){
+//            if(nums[r]==0) zero++;
+//            while(zero>k){
+//                if(nums[l]==0) zero--;
+//                l++;
+//            }
+//            if(zero<=k){
+//                int length = r-l+1;
+//                maxLength = Math.max(maxLength,length);
+//            }
+//            r++;
+//        }
+//        return maxLength;
+//    }
+
+//    Method-3 T.C = O(n) Here we will maintain the maximum length and not traverse to reach the zero to bring it in the range of k
     public static int longestOnes(int[] nums, int k){
         int n = nums.length;
         int l=0,r=0,zero=0,maxLength=0;
         while(r<n){
             if(nums[r]==0) zero++;
-            while(zero>k){
+            if(zero>k){
                 if(nums[l]==0) zero--;
                 l++;
             }
