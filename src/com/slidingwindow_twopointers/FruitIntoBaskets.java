@@ -1,6 +1,8 @@
 package com.slidingwindow_twopointers;
 
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 //You are visiting a farm that has a single row of fruit trees arranged from left to right. The trees are represented by an integer array fruits where fruits[i] is the type of fruit the ith tree produces.
@@ -31,23 +33,49 @@ import java.util.Set;
 //0 <= fruits[i] < fruits.length
 public class FruitIntoBaskets {
     public static void main(String[] args) {
-//        int fruits[] = {1,2,3,3,3,2,2,1,2};//6
-        int fruits[] = {1,2,3,2,2};//4
+        int fruits[] = {1,2,3,3,3,2,2,1,2};//6
+//        int fruits[] = {1,2,3,2,2};//4
         System.out.println(totalFruits(fruits));
     }
 
+//    Method-1 (T.C=O(n^2))
+
+//    public static int totalFruits(int[] fruits){
+//        int total=0;
+//        for(int i=0;i<fruits.length;i++){
+//            Set<Integer> set = new HashSet<>();
+//            for(int j=i;j<fruits.length;j++){
+//                set.add(fruits[j]);
+//                if(set.size()<=2){
+//                    total = Math.max(total,j-i+1);
+//                }
+//                else break;
+//            }
+//        }
+//        return total;
+//    }
+
+//    Method-2 (T.C=O(2n) S.C = O(3) almost constant SC).
     public static int totalFruits(int[] fruits){
-        int total=0;
-        for(int i=0;i<fruits.length;i++){
-            Set<Integer> set = new HashSet<>();
-            for(int j=i;j<fruits.length;j++){
-                set.add(fruits[j]);
-                if(set.size()<=2){
-                    total = Math.max(total,j-i+1);
+        int n = fruits.length;
+        int l=0,r=0,maxLength=0;
+        Map<Integer,Integer> map = new HashMap<>();
+        while(r<n){
+            map.put(fruits[r],map.getOrDefault(fruits[r],0)+1);
+            if(map.size()>2){
+                while(map.size()>2){
+                    int value = map.get(fruits[l]);//{1,2,3,3,3,2,2,1,2}
+                    map.put(fruits[l],--value);
+                    if(value==0){
+                        map.remove(fruits[l]);
+                    }
+                    l++;
                 }
-                else break;
+            }else if(map.size()<=2){
+                maxLength = Math.max(maxLength,r-l+1);
             }
+            r++;
         }
-        return total;
+        return maxLength;
     }
 }
