@@ -40,7 +40,7 @@ public class LongestSubstringWithAtmostKDistinctCharacter {
 //        return maxLength;
 //    }
 
-//    Method-2 (T.C=O(n^2))
+//    Method-2 (T.C=O(2n), S.C=O(k+1))
     public static int kDistinctCharacter(String s, int k){
         int n = s.length();
         int l=0,r=0,maxLength=0;
