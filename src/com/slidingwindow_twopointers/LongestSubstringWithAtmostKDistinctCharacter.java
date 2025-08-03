@@ -41,6 +41,29 @@ public class LongestSubstringWithAtmostKDistinctCharacter {
 //    }
 
 //    Method-2 (T.C=O(2n), S.C=O(k+1))
+//    public static int kDistinctCharacter(String s, int k){
+//        int n = s.length();
+//        int l=0,r=0,maxLength=0;
+//        Map<Character,Integer> map = new HashMap<>();
+//        while(r<n){
+//            char ch = s.charAt(r);
+//            map.put(ch,map.getOrDefault(ch,0)+1);
+//            if(map.size()>k){
+//                while(map.size()>k){
+//                    int leftValue = map.get(s.charAt(l));
+//                    map.put(s.charAt(l),--leftValue);
+//                    if(leftValue==0) map.remove(s.charAt(l));
+//                    l++;
+//                }
+//            }else if(map.size()<=k) {
+//                maxLength = Math.max(maxLength, r - l + 1);
+//            }
+//            r++;
+//        }
+//        return maxLength;
+//    }
+
+//    Method-3 (T.C=O(n) S.C=O(k+1))
     public static int kDistinctCharacter(String s, int k){
         int n = s.length();
         int l=0,r=0,maxLength=0;
@@ -49,12 +72,10 @@ public class LongestSubstringWithAtmostKDistinctCharacter {
             char ch = s.charAt(r);
             map.put(ch,map.getOrDefault(ch,0)+1);
             if(map.size()>k){
-                while(map.size()>k){
-                    int leftValue = map.get(s.charAt(l));
-                    map.put(s.charAt(l),--leftValue);
-                    if(leftValue==0) map.remove(s.charAt(l));
-                    l++;
-                }
+                int leftValue = map.get(s.charAt(l));
+                map.put(s.charAt(l),--leftValue);
+                if(leftValue==0) map.remove(s.charAt(l));
+                l++;
             }else if(map.size()<=k) {
                 maxLength = Math.max(maxLength, r - l + 1);
             }
