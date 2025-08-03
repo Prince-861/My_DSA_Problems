@@ -33,8 +33,8 @@ import java.util.Set;
 //0 <= fruits[i] < fruits.length
 public class FruitIntoBaskets {
     public static void main(String[] args) {
-        int fruits[] = {1,2,3,3,3,2,2,1,2};//6
-//        int fruits[] = {1,2,3,2,2};//4
+//        int fruits[] = {1,2,3,3,3,2,2,1,2};//6
+        int fruits[] = {1,2,3,2,2};//4
         System.out.println(totalFruits(fruits));
     }
 
@@ -56,6 +56,30 @@ public class FruitIntoBaskets {
 //    }
 
 //    Method-2 (T.C=O(2n) S.C = O(3) almost constant SC).
+//    public static int totalFruits(int[] fruits){
+//        int n = fruits.length;
+//        int l=0,r=0,maxLength=0;
+//        Map<Integer,Integer> map = new HashMap<>();
+//        while(r<n){
+//            map.put(fruits[r],map.getOrDefault(fruits[r],0)+1);
+//            if(map.size()>2){
+//                while(map.size()>2){
+//                    int value = map.get(fruits[l]);
+//                    map.put(fruits[l],--value);
+//                    if(value==0){
+//                        map.remove(fruits[l]);
+//                    }
+//                    l++;
+//                }
+//            }else if(map.size()<=2){
+//                maxLength = Math.max(maxLength,r-l+1);
+//            }
+//            r++;
+//        }
+//        return maxLength;
+//    }
+
+//    Method-3 T.C=O(n) S.C = O(3)
     public static int totalFruits(int[] fruits){
         int n = fruits.length;
         int l=0,r=0,maxLength=0;
@@ -63,14 +87,12 @@ public class FruitIntoBaskets {
         while(r<n){
             map.put(fruits[r],map.getOrDefault(fruits[r],0)+1);
             if(map.size()>2){
-                while(map.size()>2){
-                    int value = map.get(fruits[l]);//{1,2,3,3,3,2,2,1,2}
-                    map.put(fruits[l],--value);
-                    if(value==0){
-                        map.remove(fruits[l]);
-                    }
-                    l++;
+                int leftValue = map.get(fruits[l]);
+                map.put(fruits[l],--leftValue);
+                if(leftValue==0){
+                    map.remove(fruits[l]);
                 }
+                l++;
             }else if(map.size()<=2){
                 maxLength = Math.max(maxLength,r-l+1);
             }
