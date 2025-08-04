@@ -1,6 +1,8 @@
 package com.arrays;
 
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 //Given the array nums, for each nums[i] find out how many numbers in the array are smaller than it. That is, for each nums[i] you have to count the number of valid j's such that j != i and nums[j] < nums[i].
 //Return the answer in an array.
@@ -25,7 +27,7 @@ import java.util.Arrays;
 //0 <= nums[i] <= 100
 public class SmallerNumberThanCurrent {
     public static void main(String[] args) {
-        int nums[] = {6,5,3,1};
+        int nums[] = {8,1,2,2,3};//[4,0,1,1,3]
         int ans[] = smallerNumber(nums);
         System.out.println(Arrays.toString(ans));
     }
@@ -44,23 +46,43 @@ public class SmallerNumberThanCurrent {
 //    }
 
 //    Method-2
+//    public static int[] smallerNumber(int nums[]){
+//        int[] ans = new int[101];
+//        for(int i=0;i<nums.length;i++){
+//            ans[nums[i]]++;
+//        }
+//        System.out.println(Arrays.toString(ans));
+//
+//        for(int i=1;i<ans.length;i++){
+//            ans[i]+=ans[i-1];
+//        }
+//
+//        System.out.println(Arrays.toString(ans));
+//
+//        int[] result = new int[nums.length];
+//        for(int i=0;i<result.length;i++){
+//            if(nums[i]==0) result[i]=0;
+//            else result[i]=ans[nums[i]-1];
+//        }
+//        return result;
+//    }
+
+//    Method-3(using HashMap)
     public static int[] smallerNumber(int nums[]){
-        int[] ans = new int[101];
-        for(int i=0;i<nums.length;i++){
-            ans[nums[i]]++;
+        int n = nums.length;
+        int[] sorted = nums.clone();
+        Arrays.sort(sorted);
+        Map<Integer,Integer> map = new HashMap<>();
+        for(int i=0;i<n;i++){
+//            if(!map.containsKey(sorted[i])){
+//                map.put(sorted[i],i);
+//            }
+//            OR
+            map.putIfAbsent(sorted[i],i);
         }
-        System.out.println(Arrays.toString(ans));
-
-        for(int i=1;i<ans.length;i++){
-            ans[i]+=ans[i-1];
-        }
-
-        System.out.println(Arrays.toString(ans));
-
-        int[] result = new int[nums.length];
-        for(int i=0;i<result.length;i++){
-            if(nums[i]==0) result[i]=0;
-            else result[i]=ans[nums[i]-1];
+        int result[] = new int[n];
+        for(int i=0;i<n;i++){
+            result[i] = map.get(nums[i]);
         }
         return result;
     }
