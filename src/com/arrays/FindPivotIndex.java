@@ -30,28 +30,44 @@ package com.arrays;
 public class FindPivotIndex {
     public static void main(String[] args) {
 //        int[] nums={1,2,3};//-1
-        int[] nums={1,7,3,6,5,6};//3
+//        int[] nums={1,7,3,6,5,6};//3
+        int[] nums={2,1,-1};//0
         System.out.println(pivotIndex(nums));
     }
 //    Method-1
+//    public static int pivotIndex(int[] nums){
+//        int n = nums.length;
+//        int left[] = new int[nums.length];
+//        int leftSum=0;
+//        left[0]=0;
+//        for(int i=1;i<n;i++){
+//            leftSum+=nums[i-1];
+//            left[i]=leftSum;
+//        }
+//        int right[] = new int[nums.length];
+//        int rightSum=0;
+//        right[n-1]=0;
+//        for(int i=n-2;i>=0;i--){
+//            rightSum+=nums[i+1];
+//            right[i]=rightSum;
+//        }
+//        for(int i=0;i<n;i++){
+//            if(left[i]==right[i]) return i;
+//        }
+//        return -1;
+//    }
+
+//    Method-2 Using formula(rightSum = totalSum-nums[i]-leftSum)
     public static int pivotIndex(int[] nums){
-        int n = nums.length;
-        int left[] = new int[nums.length];
+        int sum=0;
+        for(int i:nums){
+            sum+=i;
+        }
         int leftSum=0;
-        left[0]=0;
-        for(int i=1;i<n;i++){
-            leftSum+=nums[i-1];
-            left[i]=leftSum;
-        }
-        int right[] = new int[nums.length];
-        int rightSum=0;
-        right[n-1]=0;
-        for(int i=n-2;i>=0;i--){
-            rightSum+=nums[i+1];
-            right[i]=rightSum;
-        }
-        for(int i=0;i<n;i++){
-            if(left[i]==right[i]) return i;
+        for(int i=0;i<nums.length;i++){
+            int rightSum=sum-nums[i]-leftSum;
+            if(leftSum==rightSum) return i;
+            leftSum+=nums[i];
         }
         return -1;
     }
