@@ -16,32 +16,60 @@ package com.slidingwindow_twopointers;
 //Example 2:
 //Input: nums = [0,0,0,0,0], goal = 0
 //Output: 15
-public class BinarySubarraysWithSum {
+
+//public class BinarySubarraysWithSum {
+//    public static void main(String[] args) {
+//        int nums[] = {1,0,1,0,1};
+//        int goal=2;
+//        System.out.println(numSubarraysWithSum(nums,goal));
+//    }
+//    public static int numSubarraysWithSum(int[] nums, int goal) {
+//        return atMost(nums, goal) - atMost(nums, goal - 1);
+//    }
+//    public static int atMost(int[] nums, int goal) {
+//        if (goal < 0) return 0;
+//
+//        int left = 0, right = 0, sum = 0, count = 0;
+//
+//        while (right < nums.length) {
+//            sum += nums[right];
+//
+//            while (sum > goal) {
+//                sum -= nums[left];
+//                left++;
+//            }
+//
+//            count += (right - left + 1);
+//            right++;
+//        }
+//
+//        return count;
+//    }
+//}
+
+
+//Method-2
+
+public class BinarySubarraysWithSum{
     public static void main(String[] args) {
-        int nums[] = {1,0,1,0,1};
+        int nums[] = {1,0,1,0,1};//4
         int goal=2;
-        System.out.println(numSubarraysWithSum(nums,goal));
+        System.out.println(subArraysWithSumLessThanOrEqualToGoal(nums,goal) - subArraysWithSumLessThanGoal(nums,goal-1));
     }
-    public static int numSubarraysWithSum(int[] nums, int goal) {
-        return atMost(nums, goal) - atMost(nums, goal - 1);
-    }
-    public static int atMost(int[] nums, int goal) {
-        if (goal < 0) return 0;
-
-        int left = 0, right = 0, sum = 0, count = 0;
-
-        while (right < nums.length) {
-            sum += nums[right];
-
-            while (sum > goal) {
-                sum -= nums[left];
-                left++;
+    public static int subArraysWithSumLessThanOrEqualToGoal(int nums[], int goal){
+        if(goal==0) return 0;
+        int l=0,r=0,n=nums.length,sum=0,count=0;
+        while(r<n){
+            sum+=nums[r];
+            while(sum>goal){
+                sum-=nums[l++];
             }
-
-            count += (right - left + 1);
-            right++;
+            count+=r-l+1;
+            r++;
         }
-
         return count;
+    }
+    public static int subArraysWithSumLessThanGoal(int nums[], int goal){
+        return subArraysWithSumLessThanOrEqualToGoal(nums, goal);
     }
 }
