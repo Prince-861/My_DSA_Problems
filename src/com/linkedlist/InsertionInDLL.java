@@ -20,7 +20,8 @@ public class InsertionInDLL {
         fourth.prev = third;
 
         printDLL(head);
-        head = insertBeforeHeadNode(head, 10);
+        //head = insertBeforeHeadNode(head, 10);
+        insertAfterHeadNode(head,20);
         printDLL(head);
     }
 
@@ -35,6 +36,26 @@ public class InsertionInDLL {
         }
 
         head = newHead;
+        return head;
+    }
+
+    public static NodeDLL insertAfterHeadNode(NodeDLL head, int val){
+        NodeDLL newNode = new NodeDLL(val);
+
+        //if no node is present
+        if(head==null){
+            return new NodeDLL(val);
+        }
+        //if only one node is present
+        if(head.next == null){
+            head.next = newNode;
+            newNode.prev = head;
+            return head;
+        }
+        head.next.prev = newNode;
+        newNode.next = head.next;
+        head.next = newNode;
+        newNode.prev = head;
         return head;
     }
 
