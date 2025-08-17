@@ -20,8 +20,10 @@ public class InsertionInDLL {
         fourth.prev = third;
 
         printDLL(head);
-        //head = insertBeforeHeadNode(head, 10);
-        insertAfterHeadNode(head,20);
+
+        // Example: insertBeforeTail
+        head = insertBeforeTailNode(head, 99);
+
         printDLL(head);
     }
 
@@ -29,34 +31,63 @@ public class InsertionInDLL {
         NodeDLL newHead = new NodeDLL(val);
         newHead.prev = null;
 
-        //if the head is null head.prev=newHead will give NullPointerException.
-        if(head != null){
+        if (head != null) {
             newHead.next = head;
             head.prev = newHead;
         }
 
-        head = newHead;
-        return head;
+        return newHead;
     }
 
-    public static NodeDLL insertAfterHeadNode(NodeDLL head, int val){
+    public static NodeDLL insertAfterHeadNode(NodeDLL head, int val) {
         NodeDLL newNode = new NodeDLL(val);
 
-        //if no node is present
-        if(head==null){
-            return new NodeDLL(val);
+        if (head == null) {
+            return newNode;
         }
-        //if only one node is present
-        if(head.next == null){
+
+        if (head.next == null) {
             head.next = newNode;
             newNode.prev = head;
             return head;
         }
-        head.next.prev = newNode;
+
         newNode.next = head.next;
+        head.next.prev = newNode;
         head.next = newNode;
         newNode.prev = head;
+
         return head;
     }
 
+    public static NodeDLL insertBeforeTailNode(NodeDLL head, int val) {
+        NodeDLL newNode = new NodeDLL(val);
+
+        // If list is empty
+        if (head == null) {
+            return newNode;
+        }
+
+        // If only one node, insert before head (new node becomes head)
+        if (head.next == null) {
+            newNode.next = head;
+            head.prev = newNode;
+            return newNode; // new head
+        }
+
+        // Traverse to the last node (tail)
+        NodeDLL tail = head;
+        while (tail.next != null) {
+            tail = tail.next;
+        }
+
+        NodeDLL prevNode = tail.prev;
+
+        prevNode.next = newNode;
+        newNode.prev = prevNode;
+        newNode.next = tail;
+        tail.prev = newNode;
+
+        return head; // head doesn’t change
+    }
 }
