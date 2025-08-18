@@ -21,8 +21,12 @@ public class InsertionInDLL {
 
         printDLL(head);
 
-        // Example: insertBeforeTail
-        head = insertBeforeTailNode(head, 99);
+        //head = insertBeforeHeadNode(head, 10);
+        //insertAfterHeadNode(head,20);
+
+        //head = insertBeforeTailNode(head, 99);
+
+        head = insertAfterTailNode(head,100);
 
         printDLL(head);
     }
@@ -89,5 +93,22 @@ public class InsertionInDLL {
         tail.prev = newNode;
 
         return head; // head doesn’t change
+    }
+
+    public static NodeDLL insertAfterTailNode(NodeDLL head, int val){
+        NodeDLL newNode = new NodeDLL(100);
+
+        if(head==null){
+            return newNode;
+        }
+
+        NodeDLL temp = head;
+        while(temp.next != null){
+            temp = temp.next;
+        }
+        temp.next = newNode;
+        newNode.prev = temp;
+
+        return head;
     }
 }
