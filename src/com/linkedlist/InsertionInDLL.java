@@ -31,7 +31,9 @@ public class InsertionInDLL {
 
         //head = insertBeforeKthNode(head,50,3);
 
-        head = insertAfterKthNode(head,80,5);
+        //head = insertAfterKthNode(head,80,5);
+
+        insertBeforeGivenNode(head.next.next.next.next,99);
 
         printDLL(head);
     }
@@ -167,6 +169,17 @@ public class InsertionInDLL {
         front.prev = newNode;
 
         return head;
+    }
+
+    public static void insertBeforeGivenNode(NodeDLL node, int val){
+        //10->20->30->40
+        NodeDLL newNode = new NodeDLL(val);
+        NodeDLL back = node.prev;
+        back.next = newNode;
+        newNode.prev = back;
+        newNode.next = node;
+        node.prev = newNode;
+
     }
 
 }
