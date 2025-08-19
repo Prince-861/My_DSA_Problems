@@ -22,11 +22,16 @@ public class InsertionInDLL {
         printDLL(head);
 
         //head = insertBeforeHeadNode(head, 10);
+
         //insertAfterHeadNode(head,20);
 
         //head = insertBeforeTailNode(head, 99);
 
-        head = insertAfterTailNode(head,100);
+        //head = insertAfterTailNode(head,100);
+
+        //head = insertBeforeKthNode(head,50,3);
+
+        head = insertAfterKthNode(head,80,5);
 
         printDLL(head);
     }
@@ -111,4 +116,57 @@ public class InsertionInDLL {
 
         return head;
     }
+
+    public static NodeDLL insertBeforeKthNode(NodeDLL head, int val, int k){
+        if(head==null) return null;
+
+        if(k==1){
+            return insertBeforeHeadNode(head,val);
+        }
+        NodeDLL temp = head;
+        int count=0;
+        while(temp!=null){
+            count++;
+            if(count==k) break;
+            temp = temp.next;
+        }
+        NodeDLL newNode = new NodeDLL(val);
+        NodeDLL back = temp.prev;
+
+        back.next = newNode;
+        newNode.prev = back;
+        newNode.next = temp;
+        temp.prev = newNode;
+
+        return head;
+    }
+
+    public static NodeDLL insertAfterKthNode(NodeDLL head, int val, int k){
+        if(head==null) return null;
+
+        if(head.next==null){
+            return insertAfterHeadNode(head,val);
+        }
+        NodeDLL temp = head;//1->2->3->4->5
+        int count = 0;
+        while(temp != null){
+            count++;
+            if(count==k) break;
+            temp = temp.next;
+        }
+        if(temp==null) return head;
+
+        NodeDLL newNode = new NodeDLL(val);
+        if(temp.next==null){
+            return insertAfterTailNode(head,val);
+        }
+        NodeDLL front = temp.next;
+        temp.next = newNode;
+        newNode.prev = temp;
+        newNode.next = front;
+        front.prev = newNode;
+
+        return head;
+    }
+
 }
