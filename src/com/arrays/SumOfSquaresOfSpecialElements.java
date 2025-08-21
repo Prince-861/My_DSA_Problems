@@ -28,7 +28,7 @@ package com.arrays;
 //1 <= nums[i] <= 50
 public class SumOfSquaresOfSpecialElements {
     public static void main(String[] args) {
-        int nums[] = new int[]{1,2,3,4};
+        int nums[] = {1,2,3,4};
         System.out.println(sumOfSquares(nums));
     }
     public static int sumOfSquares(int[] nums){
