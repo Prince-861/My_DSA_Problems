@@ -20,18 +20,31 @@ public class ReverseLL {
         printList(head);
     }
     //Method-1
+//    public static ListNode reverseLL(ListNode head){
+//        Stack<Integer>st = new Stack<>();
+//        ListNode temp = head;
+//        while(temp!=null){
+//            st.push(temp.val);
+//            temp = temp.next;
+//        }
+//        temp = head;
+//        while(temp!=null){
+//            temp.val = st.pop();
+//            temp = temp.next;
+//        }
+//        return head;
+//    }
+
+    //Method-2
     public static ListNode reverseLL(ListNode head){
-        Stack<Integer>st = new Stack<>();
         ListNode temp = head;
+        ListNode prev = null;
         while(temp!=null){
-            st.push(temp.val);
-            temp = temp.next;
+            ListNode front = temp.next;
+            temp.next = prev;
+            prev = temp;
+            temp = front;
         }
-        temp = head;
-        while(temp!=null){
-            temp.val = st.pop();
-            temp = temp.next;
-        }
-        return head;
+        return prev;
     }
 }
