@@ -36,15 +36,26 @@ public class ReverseLL {
 //    }
 
     //Method-2
+//    public static ListNode reverseLL(ListNode head){
+//        ListNode temp = head;
+//        ListNode prev = null;
+//        while(temp!=null){
+//            ListNode front = temp.next;
+//            temp.next = prev;
+//            prev = temp;
+//            temp = front;
+//        }
+//        return prev;
+//    }
+
+    //Method-3 (Recursive-Approach)
     public static ListNode reverseLL(ListNode head){
-        ListNode temp = head;
-        ListNode prev = null;
-        while(temp!=null){
-            ListNode front = temp.next;
-            temp.next = prev;
-            prev = temp;
-            temp = front;
-        }
-        return prev;
+        if(head==null || head.next == null) return head;
+
+        ListNode newHead = reverseLL(head.next);
+        ListNode front = head.next;
+        front.next = head;
+        head.next = null;
+        return newHead;
     }
 }
