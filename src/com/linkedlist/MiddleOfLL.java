@@ -36,21 +36,31 @@ public class MiddleOfLL {
         printList(head1);
         System.out.println(findMiddleNode(head1));//com.linkedlist.ListNode@7ba4f24f ==> because we want to get the intersected Node and not the data itself.
     }
-    public static ListNode findMiddleNode(ListNode head){
-        ListNode temp = head;
-        int count=0;
-        while(temp!=null){
-            count++;
-            temp = temp.next;
-        }
-        count=count/2 + 1;
+//    public static ListNode findMiddleNode(ListNode head){
+//        ListNode temp = head;
+//        int count=0;
+//        while(temp!=null){
+//            count++;
+//            temp = temp.next;
+//        }
+//        count=count/2 + 1;
+//
+//        temp = head;
+//        while(temp!=null){
+//            count--;
+//            if(count==0) return temp;
+//            temp = temp.next;
+//        }
+//        return null;
+//    }
 
-        temp = head;
-        while(temp!=null){
-            count--;
-            if(count==0) return temp;
-            temp = temp.next;
+    //Using Tortoise and Hare algorithm
+    public static ListNode findMiddleNode(ListNode head){
+        ListNode fast = head, slow = head;
+        while(fast!=null && fast.next!=null){
+            slow = slow.next;
+            fast = fast.next.next;
         }
-        return null;
+        return slow;
     }
 }
