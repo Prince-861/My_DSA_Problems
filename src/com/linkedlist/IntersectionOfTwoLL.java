@@ -1,6 +1,8 @@
 package com.linkedlist;
 
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 
 public class IntersectionOfTwoLL {
     public static void main(String[] args) {
@@ -28,23 +30,45 @@ public class IntersectionOfTwoLL {
     }
 
     // Method to find intersection using HashSet
-    public static ListNode getIntersectionNode(ListNode headA, ListNode headB) {
-        HashSet<ListNode> visited = new HashSet<>();
+//    public static ListNode getIntersectionNode(ListNode headA, ListNode headB) {
+//        HashSet<ListNode> visited = new HashSet<>();
+//
+//        // Store nodes of list A
+//        while (headA != null) {
+//            visited.add(headA);
+//            headA = headA.next;
+//        }
+//
+//        // Check nodes of list B
+//        while (headB != null) {
+//            if (visited.contains(headB)) {
+//                return headB; // Intersection found
+//            }
+//            headB = headB.next;
+//        }
+//
+//        return null; // No intersection
+//    }
+
+    //Using HashMap
+    public static ListNode getIntersectionNode(ListNode headA,ListNode headB){
+        Map<ListNode,Boolean> map = new HashMap<>();
 
         // Store nodes of list A
         while (headA != null) {
-            visited.add(headA);
+            map.put(headA, true);
             headA = headA.next;
         }
 
         // Check nodes of list B
         while (headB != null) {
-            if (visited.contains(headB)) {
+            if (map.containsKey(headB)) {
                 return headB; // Intersection found
             }
             headB = headB.next;
         }
 
-        return null; // No intersection
+        return null;
     }
+
 }
