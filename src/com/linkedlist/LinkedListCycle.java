@@ -21,13 +21,23 @@ public class LinkedListCycle {
         System.out.println(hasCycle(head));
     }
     //Method-1
+//    public static boolean hasCycle(ListNode head){
+//        ListNode temp=head;
+//        HashSet<ListNode> set = new HashSet<>();
+//        while(temp!=null){
+//            if(!set.contains(temp)) set.add(temp);
+//            else return true;
+//            temp = temp.next;
+//        }
+//        return false;
+//    }
+    //Method-2
     public static boolean hasCycle(ListNode head){
-        ListNode temp=head;
-        HashSet<ListNode> set = new HashSet<>();
-        while(temp!=null){
-            if(!set.contains(temp)) set.add(temp);
-            else return true;
-            temp = temp.next;
+        ListNode slow=head,fast=head;
+        while(fast!=null && fast.next!=null){
+            slow=slow.next;
+            fast=fast.next.next;
+            if(slow==fast) return true;
         }
         return false;
     }
