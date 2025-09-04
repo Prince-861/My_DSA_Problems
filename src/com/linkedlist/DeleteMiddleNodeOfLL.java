@@ -19,29 +19,43 @@ public class DeleteMiddleNodeOfLL {
         head=deleteMiddleNode(head);
         printList(head);
     }
+    //Method-1
+//    public static ListNode deleteMiddleNode(ListNode head){
+//        if(head==null || head.next==null){
+//            return head;
+//        }
+//        int count=0;
+//        ListNode temp = head;
+//        while(temp!=null){
+//            count++;
+//            temp = temp.next;
+//        }
+//        temp = head;
+//        ListNode prev = null;
+//        count=count/2 + 1;
+//        int destinationCount = 0;
+//        while(temp!=null){
+//            destinationCount++;
+//            if(destinationCount==count){
+//                prev.next = temp.next;
+//                return head;
+//            }
+//            prev = temp;
+//            temp = temp.next;
+//        }
+//        return null;
+//    }
+
+    //Method-2
     public static ListNode deleteMiddleNode(ListNode head){
-        if(head==null || head.next==null){
-            return head;
+        if(head==null || head.next==null) return head;
+        ListNode slow=head,fast=head,prev=null;
+        while(fast!=null && fast.next!=null){
+            prev=slow;
+            slow=slow.next;
+            fast=fast.next.next;
         }
-        int count=0;
-        ListNode temp = head;
-        while(temp!=null){
-            count++;
-            temp = temp.next;
-        }
-        temp = head;
-        ListNode prev = null;
-        count=count/2 + 1;
-        int destinationCount = 0;
-        while(temp!=null){
-            destinationCount++;
-            if(destinationCount==count){
-                prev.next = temp.next;
-                return head;
-            }
-            prev = temp;
-            temp = temp.next;
-        }
-        return null;
+        prev.next=slow.next;
+        return head;
     }
 }
